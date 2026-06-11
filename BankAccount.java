@@ -1,14 +1,18 @@
 package javaex1;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class BankAccount {
     private double balance;
     private boolean isFrozen;
+    private final List<TransactionClass> transactionHistory;
 
     
     public BankAccount() {
         this.balance = 0.0;
         this.isFrozen = false;
+        this.transactionHistory = new ArrayList<>();
     }
 
     
@@ -27,6 +31,7 @@ public class BankAccount {
         }
 
         balance += amount;
+        transactionHistory.add(new TransactionClass("Deposit: ",amount));
         System.out.printf("Current balance: %.2f%n", balance);
     }
 
@@ -52,6 +57,7 @@ public class BankAccount {
         }
 
         balance -= amount;
+        transactionHistory.add(new TransactionClass("Withdraw: ",amount));
         System.out.printf("Current balance: %.2f%n", balance);
     }
 
@@ -73,9 +79,14 @@ public class BankAccount {
     public boolean isFrozen() {
         return isFrozen;
     }
+    
 
     
     private double roundTwo(double value) {
         return Math.round(value * 100.0) / 100.0;
     }
+    
+	public List<TransactionClass> getTransactionHistory() {
+		return transactionHistory;
+	}
 }
